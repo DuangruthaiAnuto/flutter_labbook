@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter_bookshop_complete/components/common/share_pref.dart';
 import 'package:http/http.dart' as http;
 //Import DotEnv
-//Import SharedPref
 import 'package:flutter_dotenv/flutter_dotenv.dart ' as DotEnv;
+//Import SharedPref
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
@@ -28,7 +28,7 @@ class User {
       //Code response
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       if (response.statusCode == 201) {
-        String token = jsonDecode(response.body)['asscessToken'];
+        String token = jsonDecode(response.body)['accessToken'];
         int userId = jsonDecode(response.body)['userId'];
 
         prefs.setInt('userId', userId);

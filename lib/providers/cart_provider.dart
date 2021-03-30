@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 //Import DotEnv
+import 'package:flutter_dotenv/flutter_dotenv.dart ' as DotEnv;
 //Import SharedPref
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/cart.dart';
 
 class Cart with ChangeNotifier {
@@ -122,20 +124,28 @@ class Cart with ChangeNotifier {
     //Get Token from SharePref
     //Get userId from SharePref
 
+    String url = DotEnv.env['api_url'] + 'order';
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    int userId = prefs.getInt('userId');
+
     Map<String, String> headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       "Content-type": "application/json",
       //Authorize Header
+
+      "Authorization": "bearer $token"
     };
     http
         .post(
-      'url', //Edit url
+      url, //Edit url
       headers: headers,
       body: json.encode({
         'userId': 'userId', //Edit userId
         'name': name,
         'address': address,
         'total': totalAmount,
+        'details': toJson()
         //code detail
       }),
     )
