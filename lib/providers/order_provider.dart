@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 //Import DotEnv
+import 'package:flutter_dotenv/flutter_dotenv.dart ' as DotEnv;
 //Import SharedPref
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/order.dart';
 
 class Order with ChangeNotifier {
@@ -16,7 +18,7 @@ class Order with ChangeNotifier {
     //Get API URL from .env
     //Get Token from SharePref
     //Get userId from SharePref
-
+    String url = DotEnv.env['api_url'] + 'order/:userId';
     Map<String, String> headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       "Content-type": "application/json",
@@ -25,7 +27,7 @@ class Order with ChangeNotifier {
 
     http
         .get(
-      'url', //edit url
+      url, //edit url
       headers: headers,
     )
         .then((response) {
