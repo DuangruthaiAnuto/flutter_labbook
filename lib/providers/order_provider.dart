@@ -18,11 +18,16 @@ class Order with ChangeNotifier {
     //Get API URL from .env
     //Get Token from SharePref
     //Get userId from SharePref
-    String url = DotEnv.env['api_url'] + 'order/:userId';
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    int userId = prefs.getInt('userId');
+    String url = DotEnv.env['api_url'] + 'order/' + userId.toString();
+
     Map<String, String> headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       "Content-type": "application/json",
       //Authorize Header
+      "Authorization": "bearer $token"
     };
 
     http
@@ -33,6 +38,9 @@ class Order with ChangeNotifier {
         .then((response) {
       if (response.statusCode == 200) {
         //Code for status 200
+        _orders = List<OrderItem>.from(jsonDecode(response.body)['data']
+            .map((bk) => OrderItem.fromJson(bk)));
+        notifyListeners();
       } else {
         throw Exception('Failed to load books');
       }

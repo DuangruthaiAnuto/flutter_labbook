@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:flutter_bookshop_complete/components/common/share_pref.dart';
 import 'package:http/http.dart' as http;
 //Import DotEnv
 import 'package:flutter_dotenv/flutter_dotenv.dart ' as DotEnv;
 //Import SharedPref
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
 class User {
   Future<void> signIn(username, password) {
