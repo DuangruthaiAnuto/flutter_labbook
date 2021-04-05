@@ -26,7 +26,6 @@ class Order with ChangeNotifier {
     Map<String, String> headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       "Content-type": "application/json",
-
       //Authorize Header
       "Authorization": "bearer $token"
     };
