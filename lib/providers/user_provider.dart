@@ -13,6 +13,7 @@ class User {
       "Content-Type": "application/x-www-form-urlencoded",
       "Content-type": "application/json",
     };
+
     http
         .post(
       url, //edit url
